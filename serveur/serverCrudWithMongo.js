@@ -150,7 +150,7 @@ app.post('/api/restaurants', multerData.fields([]), function(req, res) {
 app.put('/api/restaurants/:id', multerData.fields([]), function(req, res) {
 	var id = req.params.id;
 
- 	mongoDBModule.updateRestaurant(id, req.body, function(data) {
+ 	mongoDBModule.updateRestaurant(id, req.query, function(data) {
  		res.send(JSON.stringify(data)); 
  	});
 });
