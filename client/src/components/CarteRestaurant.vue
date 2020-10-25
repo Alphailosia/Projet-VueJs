@@ -25,7 +25,7 @@
       />
       {{ pageSize }}
     </p>
-     <v-pagination
+    <v-pagination
       v-model="page"
       :total-visible="7"
       :length="nbPagesTotal"
@@ -33,26 +33,24 @@
       circle
     ></v-pagination>
     <p>Nombre total de pages : {{ nbPagesTotal }}</p>
-    <tr
-          v-for="(r, index) in restaurants" :key="index"
-          >
-          <Restaurant
-          @suprime="getRestaurantsFromServer()"
-          :id="r._id"
-          :nom="r.name"
-          :cuisine="r.cuisine"
-          :note="r.note"
-          />
+    <tr v-for="(r, index) in restaurants" :key="index">
+      <Restaurant
+        @refresh="getRestaurantsFromServer()"
+        :id="r._id"
+        :nom="r.name"
+        :cuisine="r.cuisine"
+        :note="r.note"
+      />
     </tr>
   </v-container>
 </template>
 
 <script>
-import Restaurant from './Restaurant'
+import Restaurant from "./Restaurant";
 
 export default {
-  components:{
-    Restaurant
+  components: {
+    Restaurant,
   },
   data: () => ({
     restaurants: [],
@@ -61,18 +59,18 @@ export default {
     nbRestaurantsTotal: 0,
     page: 1,
     pageSize: 10,
-    nbPagesTotal: 0
+    nbPagesTotal: 0,
   }),
-  mounted () {
+  mounted() {
     console.log("oskour avant l'affichage");
     this.getRestaurantsFromServer();
   },
   methods: {
-    calculNoteMoyenne: function() {
+    calculNoteMoyenne: function () {
       for (let r of this.restaurants) {
         console.log(r);
         if (r.grades === undefined) {
-          r.note = "NA";
+          r.note = NaN;
         } else {
           let moyenne = 0;
           let sommeTotal = 0;
@@ -81,14 +79,24 @@ export default {
           }
           moyenne = sommeTotal / r.grades.length;
           console.log(moyenne);
-          r.note = moyenne;
+          r.note = Math.round(moyenne);
         }
       }
     },
-    getRestaurantsFromServer: function() {
-      console.log(this.page)
+    calculNbPageMax: function () {
+      let nbReelPage = this.nbRestaurantsTotal / this.pageSize;
+      let pageRound = Math.round(nbReelPage);
+      console.log(nbReelPage);
+      if ( nbReelPage > pageRound ) {
+        this.nbPagesTotal = pageRound+1;
+      } else {
+        this.nbPagesTotal = pageRound;
+      }
+    },
+    getRestaurantsFromServer: function () {
+      console.log(this.page);
       let url = "http://localhost:8080/api/restaurants?";
-      url += "page=" + (this.page-1);
+      url += "page=" + (this.page - 1);
       url += "&pagesize=" + this.pageSize;
       fetch(url)
         .then((responseJSON) => {
@@ -97,38 +105,39 @@ export default {
             console.log(resJS);
             this.restaurants = resJS.data;
             this.nbRestaurantsTotal = resJS.count;
-            this.nbPagesTotal = Math.round(
-              this.nbRestaurantsTotal / this.pageSize
-            );
+            this.calculNbPageMax();
             this.calculNoteMoyenne();
+            if(this.restaurants.length===0){
+              this.page--;
+              this.getRestaurantsFromServer();
+            }
           });
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    supprimerRestaurant: function(index) {
-      this.restaurants.splice(index, 1);
-    },
-    getColor: function(index) {
+    getColor: function (index) {
       return index % 2 ? "lightBlue" : "pink";
     },
-    ajouterRestaurant: async function(){
+    ajouterRestaurant: async function () {
       const pms = {
         nom: this.name,
-        cuisine: this.cuisine
-      }
+        cuisine: this.cuisine,
+      };
 
-      const url = new URL('http://localhost:8080/api/restaurants'),
-        params = pms
-      Object.keys(params).forEach((key) =>url.searchParams.append(key, params[key]));
-      const res = await fetch(url,{method:"POST"});
+      const url = new URL("http://localhost:8080/api/restaurants"),
+        params = pms;
+      Object.keys(params).forEach((key) =>
+        url.searchParams.append(key, params[key])
+      );
+      const res = await fetch(url, { method: "POST" });
       const json = await res.json;
       console.log(json.data);
       this.getRestaurantsFromServer();
       this.name = "";
-      this.cuisine ="";
-    }
+      this.cuisine = "";
+    },
   },
 };
 </script>

@@ -37,7 +37,7 @@ export default {
   methods: {
     envoieRequeteFetchDelete: function () {
       let url = "http://localhost:8080/api/restaurants/" + this.id;
-      this.$emit("suprime");
+      this.$emit("refresh");
       fetch(url, {
         method: "DELETE",
       })
@@ -66,7 +66,7 @@ export default {
       const res = await fetch(url,{method:"PUT"});
       const json = await res.json;
       console.log(json.data);
-      this.$emit("suprime");
+      this.$emit("refresh");
       this.nomModif = "";
       this.cuisineModif ="";
     },
