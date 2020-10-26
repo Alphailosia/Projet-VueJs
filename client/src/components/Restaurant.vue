@@ -6,6 +6,7 @@
     <v-card-actions>
       <v-btn @click="envoieRequeteFetchDelete()">Supprimer</v-btn>
       <v-btn @click="formModifRestaurant()">Modifier</v-btn>
+      <v-btn><router-link :to="'/restaurant/'+id"> Detail </router-link></v-btn>
     </v-card-actions>
     <form v-if="formDisabled"   @submit.prevent="modificationRestaurant()">
       <label>
@@ -27,7 +28,7 @@ export default {
     id: String,
     nom: String,
     cuisine: String,
-    note: Number,
+    note: Number
   },
   data: () => ({
     formDisabled: false,
@@ -70,6 +71,9 @@ export default {
       this.nomModif = "";
       this.cuisineModif ="";
     },
+    detailRestaurant: function(){
+      
+    }
   },
 };
 </script>

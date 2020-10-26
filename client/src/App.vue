@@ -2,25 +2,23 @@
   <v-app>
     <v-app-bar
       app
-      color="primary"
+      color="dark"
     >
-     
+    <router-link to="/"> [Home] </router-link>
     </v-app-bar>
-
     <v-main>
-      <CarteRestaurant/>
+      <router-view></router-view>
+      
     </v-main>
   </v-app>
 </template>
 
 <script>
-import CarteRestaurant from './components/CarteRestaurant'
 
 export default {
   name: 'App',
 
   components: {
-    CarteRestaurant,
   },
 
   data: () => ({
