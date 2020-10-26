@@ -18,6 +18,10 @@ const router = new VueRouter({
     {
       path: '/restaurant/:id',
       component: DetailRestaurant
+    },
+    {
+      path: '/map',
+      component: DetailRestaurant
     }
   ],
   mode: 'history'
