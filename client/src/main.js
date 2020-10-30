@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import vuetify from './plugins/vuetify';
 import VueRouter from 'vue-router';
-import CarteRestaurant from './components/CarteRestaurant'
+import Restaurant from './components/Restaurant'
 import DetailRestaurant from './components/DetailRestaurant'
 
 Vue.config.productionTip = false
@@ -13,14 +13,10 @@ const router = new VueRouter({
   routes: [
     {
       path: '/',
-      component: CarteRestaurant
+      component: Restaurant
     },
     {
       path: '/restaurant/:id',
-      component: DetailRestaurant
-    },
-    {
-      path: '/map',
       component: DetailRestaurant
     }
   ],

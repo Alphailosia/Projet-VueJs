@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <h1>Détail du restaurant : </h1>
+    <img :src="addImage()">  
     <p>Nom : {{ resto.name }}</p>
     <p>Cuisine : {{ resto.cuisine }}</p>
     <p>Note : {{ resto.note }}</p>
@@ -23,7 +24,19 @@ export default {
   name: "restaurant",
   data: () => ({
     resto: {},
-    url: ""
+    url: "",
+    images: [
+      "https://cdn.discordapp.com/attachments/762755906634907659/771743169515094023/restaurant-pre-sale-interieur-2-200x300.png",
+      "https://cdn.discordapp.com/attachments/762755906634907659/771743447224156200/wagon-200x300.png",
+      "https://cdn.discordapp.com/attachments/762755906634907659/771743531672010762/pupetta-4-le-marais-mood-restaurant-le-marais-paris-200x300.png",
+      "https://cdn.discordapp.com/attachments/762755906634907659/771743619505193001/restaurant-bio-bara-soup-salle-interieure-7908-118-200x300.png",
+      "https://cdn.discordapp.com/attachments/762755906634907659/771743676756918302/105898584_2595582180757841_1113160672191342464_o-200x300.png",
+      "https://cdn.discordapp.com/attachments/762755906634907659/771743731920928768/Teta-restaurant-burger-etretat-normandie-liban-cuisine-libanaise-200x300.png",
+      "https://cdn.discordapp.com/attachments/762755906634907659/771743771875606558/mg-2178-1-200x300.png",
+      "https://cdn.discordapp.com/attachments/762755906634907659/771743953304682536/IMG_6807_300x300.png",
+      "https://cdn.discordapp.com/attachments/762755906634907659/771743956642824212/restaurante-03-200x300.png",
+      "https://cdn.discordapp.com/attachments/762755906634907659/771744025468207114/57180308.png"
+    ]
   }),
   computed: {
     id() {
@@ -62,7 +75,12 @@ export default {
       let latright = lat + size;
 
       this.url = `http://www.openstreetmap.org/export/embed.html?bbox=${lgndown}%2C${latleft}%2C${lgnup}%2C${latright}&layer=mapnik&marker=${lat}%2C${lgn}`;
-    }
+    },
+    addImage: function (){
+      let index = Math.random()*9;
+      index = Math.round(index);
+      return this.images[index];
+    } 
   },
 };
 </script>

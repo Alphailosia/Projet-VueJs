@@ -1,79 +1,140 @@
 <template>
-  <v-card class="mb-5">
-    <v-card-title>Restaurant : {{ nom }}</v-card-title>
-    <v-card-text>Cuisine : {{ cuisine }}</v-card-text>
-    <v-card-text>Note : {{ note }}</v-card-text>
-    <v-card-actions>
-      <v-btn @click="envoieRequeteFetchDelete()">Supprimer</v-btn>
-      <v-btn @click="formModifRestaurant()">Modifier</v-btn>
-      <v-btn><router-link :to="'/restaurant/'+id"> Detail </router-link></v-btn>
-    </v-card-actions>
-    <form v-if="formDisabled"   @submit.prevent="modificationRestaurant()">
+  <v-container>
+    <form @submit.prevent="ajouterRestaurant()">
       <label>
-        Nom : <input type="text" name="nom" required v-model="nomModif" />
+        Nom : <input type="text" name="nom" required v-model="name" />
       </label>
       <label>
         Cuisine :
-        <input type="text" name="cuisine" required v-model="cuisineModif" />
+        <input type="text" name="cuisine" required v-model="cuisine" />
       </label>
 
-      <button>Modifier</button>
+      <button>Ajouter</button>
     </form>
-  </v-card>
+
+    <h1>Nombre de restaurants : {{ nbRestaurantsTotal }}</h1>
+    <p>
+      Nombre de restaurants par page
+      <input
+        @change="getRestaurantsFromServer()"
+        type="range"
+        min="5"
+        max="100"
+        step="5"
+        v-model="pageSize"
+      />
+      {{ pageSize }}
+    </p>
+    <v-pagination
+      v-model="page"
+      :total-visible="7"
+      :length="nbPagesTotal"
+      @input="getRestaurantsFromServer()"
+      circle
+    ></v-pagination>
+    <p>Nombre total de pages : {{ nbPagesTotal }}</p>
+    <tr v-for="(r, index) in restaurants" :key="index">
+      <CarteRestaurants
+        @refresh="getRestaurantsFromServer()"
+        :id="r._id"
+        :nom="r.name"
+        :cuisine="r.cuisine"
+        :note="r.note"
+      />
+    </tr>
+  </v-container>
 </template>
 
 <script>
+import CarteRestaurants from "./CarteRestaurants";
+
 export default {
-  props: {
-    id: String,
-    nom: String,
-    cuisine: String,
-    note: Number
+  components: {
+    CarteRestaurants,
   },
   data: () => ({
-    formDisabled: false,
-    nomModif: "",
-    cuisineModif: ""
+    restaurants: [],
+    name: "",
+    cuisine: "",
+    nbRestaurantsTotal: 0,
+    page: 1,
+    pageSize: 10,
+    nbPagesTotal: 0,
   }),
+  mounted() {
+    console.log("oskour avant l'affichage");
+    this.getRestaurantsFromServer();
+  },
   methods: {
-    envoieRequeteFetchDelete: function () {
-      let url = "http://localhost:8080/api/restaurants/" + this.id;
-      this.$emit("refresh");
-      fetch(url, {
-        method: "DELETE",
-      })
+    calculNoteMoyenne: function () {
+      for (let r of this.restaurants) {
+        console.log(r);
+        if (r.grades === undefined) {
+          r.note = NaN;
+        } else {
+          let moyenne = 0;
+          let sommeTotal = 0;
+          for (let note of r.grades) {
+            sommeTotal += note.score;
+          }
+          moyenne = sommeTotal / r.grades.length;
+          console.log(moyenne);
+          r.note = Math.round(moyenne);
+        }
+      }
+    },
+    calculNbPageMax: function () {
+      let nbReelPage = this.nbRestaurantsTotal / this.pageSize;
+      let pageRound = Math.round(nbReelPage);
+      console.log(nbReelPage);
+      if ( nbReelPage > pageRound ) {
+        this.nbPagesTotal = pageRound+1;
+      } else {
+        this.nbPagesTotal = pageRound;
+      }
+    },
+    getRestaurantsFromServer: function () {
+      console.log(this.page);
+      let url = "http://localhost:8080/api/restaurants?";
+      url += "page=" + (this.page - 1);
+      url += "&pagesize=" + this.pageSize;
+      fetch(url)
         .then((responseJSON) => {
-          responseJSON.json().then(function (res) {
-            // Maintenant res est un vrai objet JavaScript
-            console.log(res);
+          responseJSON.json().then((resJS) => {
+            // Maintenant resJS est un vrai objet JavaScript
+            console.log(resJS);
+            this.restaurants = resJS.data;
+            this.nbRestaurantsTotal = resJS.count;
+            this.calculNbPageMax();
+            this.calculNoteMoyenne();
+            if(this.restaurants.length===0){
+              this.page--;
+              this.getRestaurantsFromServer();
+            }
           });
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    formModifRestaurant: function(){
-      this.formDisabled = !this.formDisabled;
-    },
-    modificationRestaurant: async function () {
+    ajouterRestaurant: async function () {
       const pms = {
-        nom: this.nomModif,
-        cuisine: this.cuisineModif
-      }
-      console.log("modif sur ",pms)
-      const url = new URL('http://localhost:8080/api/restaurants/'+this.id),
-        params = pms
-      Object.keys(params).forEach((key) =>url.searchParams.append(key, params[key]));
-      const res = await fetch(url,{method:"PUT"});
+        nom: this.name,
+        cuisine: this.cuisine,
+      };
+
+      const url = new URL("http://localhost:8080/api/restaurants"),
+        params = pms;
+      Object.keys(params).forEach((key) =>
+        url.searchParams.append(key, params[key])
+      );
+      const res = await fetch(url, { method: "POST" });
       const json = await res.json;
       console.log(json.data);
-      this.$emit("refresh");
-      this.nomModif = "";
-      this.cuisineModif ="";
+      this.getRestaurantsFromServer();
+      this.name = "";
+      this.cuisine = "";
     },
-    detailRestaurant: function(){
-      
-    }
   },
 };
 </script>
