@@ -14,11 +14,25 @@
     </ul>
     <h1>Plats Du Jour</h1>
     <ul>
-      <li></li>
+      <li v-for="(pl, index) in platDuJour" :key="index">
+          {{ pl.name }}
+          <ul>
+              <li> {{ pl.description }} </li>
+              <li> {{ pl.photo }} </li>
+              <li> {{ pl.prix }} </li>
+          </ul>
+      </li>
     </ul>
     <h1>Dessert</h1>
     <ul>
-      <li></li>
+      <li v-for="(de, index) in dessert" :key="index">
+          {{ de.name }}
+          <ul>
+              <li> {{ de.description }} </li>
+              <li> {{ de.photo }} </li>
+              <li> {{ de.prix }} </li>
+          </ul>
+      </li>
     </ul>
   </v-container>
 </template>
@@ -48,14 +62,17 @@ export default {
           this.getPlatFromCarte();
       },
       getPlatFromCarte: function(){
+          console.log("ho");
           for(let ho of this.carte[1].horsdoeuvre){
               this.horsdOeuvre.push(ho);
           }
+          console.log("plat");
           for(let pl of this.carte[2].platjour){
               this.platDuJour.push(pl);
           }
+          console.log("dessert");
           for(let d of this.carte[3].dessert){
-              this.platDuJour.push(d);
+              this.dessert.push(d);
           }
       }
   }
