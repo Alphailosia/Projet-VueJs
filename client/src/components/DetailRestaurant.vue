@@ -16,12 +16,18 @@
       :src="url"
       style="border-radius: 20px"
     ></iframe>
+    <CarteDesPlats/>
   </v-container>
 </template>
 
 <script>
+import CarteDesPlats from "./CarteDesPlats";
+
 export default {
   name: "restaurant",
+  components: {
+    CarteDesPlats
+  },
   data: () => ({
     resto: {},
     url: "",
@@ -47,6 +53,23 @@ export default {
     this.getRestoFromeServer();
   },
   methods: {
+    calculNoteMoyenne: function () {
+      for (let r of this.restaurants) {
+        console.log(r);
+        if (r.grades === undefined) {
+          r.note = NaN;
+        } else {
+          let moyenne = 0;
+          let sommeTotal = 0;
+          for (let note of r.grades) {
+            sommeTotal += note.score;
+          }
+          moyenne = sommeTotal / r.grades.length;
+          console.log(moyenne);
+          r.note = Math.round(moyenne);
+        }
+      }
+    },
     getRestoFromeServer: async function () {
       let url = "http://localhost:8080/api/restaurants/";
       url += this.id;
