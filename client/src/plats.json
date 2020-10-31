@@ -5,13 +5,13 @@
                 "horsdoeuvre": [
                     {
                         "name": "nom",
-                        "photo": "url",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat",
                         "prix": 0
                     },
                     {
                         "name": "nom2",
-                        "photo": "url2",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat2",
                         "prix": 0
                     }
@@ -21,13 +21,13 @@
                 "platjour": [
                     {
                         "name": "nom",
-                        "photo": "url",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat",
                         "prix": 0
                     },
                     {
                         "name": "nom2",
-                        "photo": "url2",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat2",
                         "prix": 0
                     }
@@ -37,13 +37,13 @@
                 "dessert": [
                     {
                         "name": "nom",
-                        "photo": "url",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat",
                         "prix": 0
                     },
                     {
                         "name": "nom2",
-                        "photo": "url2",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat2",
                         "prix": 0
                     }
@@ -57,13 +57,13 @@
                 "horsdoeuvre": [
                     {
                         "name": "nom",
-                        "photo": "url",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat",
                         "prix": 0
                     },
                     {
                         "name": "nom2",
-                        "photo": "url2",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat2",
                         "prix": 0
                     }
@@ -73,13 +73,13 @@
                 "platjour": [
                     {
                         "name": "nom",
-                        "photo": "url",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat",
                         "prix": 0
                     },
                     {
                         "name": "nom2",
-                        "photo": "url2",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat2",
                         "prix": 0
                     }
@@ -89,13 +89,13 @@
                 "dessert": [
                     {
                         "name": "nom",
-                        "photo": "url",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat",
                         "prix": 0
                     },
                     {
                         "name": "nom2",
-                        "photo": "url2",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat2",
                         "prix": 0
                     }
@@ -109,13 +109,13 @@
                 "horsdoeuvre": [
                     {
                         "name": "nom",
-                        "photo": "url",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat",
                         "prix": 0
                     },
                     {
                         "name": "nom2",
-                        "photo": "url2",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat2",
                         "prix": 0
                     }
@@ -125,13 +125,13 @@
                 "platjour": [
                     {
                         "name": "nom",
-                        "photo": "url",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat",
                         "prix": 0
                     },
                     {
                         "name": "nom2",
-                        "photo": "url2",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat2",
                         "prix": 0
                     }
@@ -141,13 +141,13 @@
                 "dessert": [
                     {
                         "name": "nom",
-                        "photo": "url",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat",
                         "prix": 0
                     },
                     {
                         "name": "nom2",
-                        "photo": "url2",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat2",
                         "prix": 0
                     }
@@ -161,13 +161,13 @@
                 "horsdoeuvre": [
                     {
                         "name": "nom",
-                        "photo": "url",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat",
                         "prix": 0
                     },
                     {
                         "name": "nom2",
-                        "photo": "url2",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat2",
                         "prix": 0
                     }
@@ -177,13 +177,13 @@
                 "platjour": [
                     {
                         "name": "nom",
-                        "photo": "url",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat",
                         "prix": 0
                     },
                     {
                         "name": "nom2",
-                        "photo": "url2",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat2",
                         "prix": 0
                     }
@@ -193,13 +193,13 @@
                 "dessert": [
                     {
                         "name": "nom",
-                        "photo": "url",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat",
                         "prix": 0
                     },
                     {
                         "name": "nom2",
-                        "photo": "url2",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat2",
                         "prix": 0
                     }
@@ -213,13 +213,13 @@
                 "horsdoeuvre": [
                     {
                         "name": "nom",
-                        "photo": "url",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat",
                         "prix": 0
                     },
                     {
                         "name": "nom2",
-                        "photo": "url2",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat2",
                         "prix": 0
                     }
@@ -229,13 +229,13 @@
                 "platjour": [
                     {
                         "name": "nom",
-                        "photo": "url",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat",
                         "prix": 0
                     },
                     {
                         "name": "nom2",
-                        "photo": "url2",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat2",
                         "prix": 0
                     }
@@ -245,13 +245,13 @@
                 "dessert": [
                     {
                         "name": "nom",
-                        "photo": "url",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat",
                         "prix": 0
                     },
                     {
                         "name": "nom2",
-                        "photo": "url2",
+                        "photo": "https://picsum.photos/200",
                         "description": "description du plat2",
                         "prix": 0
                     }

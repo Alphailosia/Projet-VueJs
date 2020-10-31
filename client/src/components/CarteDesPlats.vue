@@ -1,38 +1,32 @@
 <template>
   <v-container>
-    <title>Nos Plats</title>
-    <h1>Hors d'œuvres</h1>
+    <h1>Nos Plats</h1>
+    <h2>Hors d'œuvres</h2>
     <ul>
-      <li v-for="(ho, index) in horsdOeuvre" :key="index">
-          {{ ho.name }}
-          <ul>
-              <li> {{ ho.description }} </li>
-              <li> {{ ho.photo }} </li>
-              <li> {{ ho.prix }} </li>
-          </ul>
-      </li>
+      <v-card v-for="(de, index) in horsdOeuvre" :key="index">
+          <v-card-title>{{ de.name }}</v-card-title>
+          <img :src="de.photo" alt="photo">
+          <v-card-text> {{ de.description }} </v-card-text>
+          <v-card-text> {{ de.prix }}€ </v-card-text>
+      </v-card>
     </ul>
-    <h1>Plats Du Jour</h1>
+    <h2>Plats Du Jour</h2>
     <ul>
-      <li v-for="(pl, index) in platDuJour" :key="index">
-          {{ pl.name }}
-          <ul>
-              <li> {{ pl.description }} </li>
-              <li> {{ pl.photo }} </li>
-              <li> {{ pl.prix }} </li>
-          </ul>
-      </li>
+      <v-card v-for="(de, index) in platDuJour" :key="index">
+          <v-card-title>{{ de.name }}</v-card-title>
+          <img :src="de.photo" alt="photo">
+          <v-card-text> {{ de.description }} </v-card-text>
+          <v-card-text> {{ de.prix }}€ </v-card-text>
+      </v-card>
     </ul>
-    <h1>Dessert</h1>
+    <h2>Dessert</h2>
     <ul>
-      <li v-for="(de, index) in dessert" :key="index">
-          {{ de.name }}
-          <ul>
-              <li> {{ de.description }} </li>
-              <li> {{ de.photo }} </li>
-              <li> {{ de.prix }} </li>
-          </ul>
-      </li>
+      <v-card v-for="(de, index) in dessert" :key="index">
+          <v-card-title>{{ de.name }}</v-card-title>
+          <img :src="de.photo" alt="photo">
+          <v-card-text> {{ de.description }} </v-card-text>
+          <v-card-text> {{ de.prix }}€ </v-card-text>
+      </v-card>
     </ul>
   </v-container>
 </template>

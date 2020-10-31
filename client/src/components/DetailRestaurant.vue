@@ -1,18 +1,15 @@
 <template>
   <v-container>
     <h1>Détail du restaurant : </h1>
-    <img :src="addImage()">  
+    <img :src="addImage()" alt="image resto">  
     <p>Nom : {{ resto.name }}</p>
     <p>Cuisine : {{ resto.cuisine }}</p>
-    <p>Note : {{ resto.note }}</p>
+    <p>Note : {{ note }}</p>
     <p>Ville : {{ resto.borough }}</p>
     <iframe
-      width="100%"
+      title="resto map"
+      width="60%"
       height="400px"
-      frameborder="0"
-      scrolling="yes"
-      marginheight="0"
-      marginwidth="0"
       :src="url"
       style="border-radius: 20px"
     ></iframe>
@@ -36,13 +33,14 @@ export default {
       "https://cdn.discordapp.com/attachments/762755906634907659/771743447224156200/wagon-200x300.png",
       "https://cdn.discordapp.com/attachments/762755906634907659/771743531672010762/pupetta-4-le-marais-mood-restaurant-le-marais-paris-200x300.png",
       "https://cdn.discordapp.com/attachments/762755906634907659/771743619505193001/restaurant-bio-bara-soup-salle-interieure-7908-118-200x300.png",
-      "https://lh3.googleusercontent.com/proxy/6SXYlS_aUaorSrhLvH4j3j41ydRrjOTfovnC7dr11K-nR7pDiorfrtuOQDs7uTOXpQfpmMg-ysg8WsRWQyniBIsyuWrDu-pmx2wZILnP-lr6JMmtWDSI-waKW5LRT_bsGYU5appc",
+      "https://mazaroca.com/wp-content/uploads/2018/12/restaurante-03-200x300.jpg",
       "https://oaformation.com/wp-content/uploads/2018/05/D%C3%A9coration-restaurant-200x300.jpg",
       "https://cdn.discordapp.com/attachments/762755906634907659/771743771875606558/mg-2178-1-200x300.png",
       "https://cdn.discordapp.com/attachments/762755906634907659/771743953304682536/IMG_6807_300x300.png",
       "https://cdn.discordapp.com/attachments/762755906634907659/771743956642824212/restaurante-03-200x300.png",
       "https://cdn.discordapp.com/attachments/762755906634907659/771744025468207114/57180308.png"
-    ]
+    ],
+    note:0
   }),
   computed: {
     id() {
@@ -54,21 +52,18 @@ export default {
   },
   methods: {
     calculNoteMoyenne: function () {
-      for (let r of this.restaurants) {
-        console.log(r);
-        if (r.grades === undefined) {
-          r.note = NaN;
+        if (this.resto.grades === undefined) {
+          this.note = "Non renseigné";
         } else {
           let moyenne = 0;
           let sommeTotal = 0;
-          for (let note of r.grades) {
+          for (let note of this.resto.grades) {
             sommeTotal += note.score;
           }
-          moyenne = sommeTotal / r.grades.length;
+          moyenne = sommeTotal / this.resto.grades.length;
           console.log(moyenne);
-          r.note = Math.round(moyenne);
+          this.note = Math.round(moyenne)+"";
         }
-      }
     },
     getRestoFromeServer: async function () {
       let url = "http://localhost:8080/api/restaurants/";
@@ -76,11 +71,10 @@ export default {
       fetch(url)
         .then((responseJSON) => {
           responseJSON.json().then((resJS) => {
-            // Maintenant resJS est un vrai objet JavaScript
-            //console.log(resJS);
             this.resto = resJS.restaurant;
             console.log(this.resto);
             this.geolocate();
+            this.calculNoteMoyenne();
           });
         })
         .catch((err) => {
@@ -102,6 +96,7 @@ export default {
     addImage: function (){
       let index = Math.random()*9;
       index = Math.round(index);
+      console.log(index);
       return this.images[index];
     } 
   },
