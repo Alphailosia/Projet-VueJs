@@ -3,7 +3,7 @@
     <h1>Ajouter un restaurant</h1>
     <form @submit.prevent="ajouterRestaurant()">
       <label>
-        Nom : <input type="text" name="nom" required v-model="name" />
+        Nom : <input type="text" name="nom" required v-model="nom" />
       </label>
       <label>
         Cuisine :
@@ -37,7 +37,7 @@
     <h1>Rechercher un restaurant</h1>
     <form @submit.prevent="getRestaurantsFromServer()">
       <label>
-        Nom : <input type="text" name="nom" v-model="name" />
+        <input placeholder="Search..." v-on="getRestaurantsFromServer" type="text" name="name" v-model="name" />
       </label>
       <button>Rechercher</button>
     </form>
@@ -71,7 +71,7 @@ export default {
     nbPagesTotal: 0,
   }),
   mounted() {
-    console.log("oskour avant l'affichage");
+    console.log("Avant l'affichage");
     this.getRestaurantsFromServer();
   },
   methods: {
@@ -131,7 +131,7 @@ export default {
     },
     ajouterRestaurant: async function () {
       const pms = {
-        nom: this.name,
+        nom: this.nom,
         cuisine: this.cuisine,
       };
 
@@ -144,7 +144,7 @@ export default {
       const json = await res.json;
       console.log(json.data);
       this.getRestaurantsFromServer();
-      this.name = "";
+      this.nom = "";
       this.cuisine = "";
     },
   },
