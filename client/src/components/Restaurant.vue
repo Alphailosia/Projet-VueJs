@@ -37,12 +37,12 @@
     <h1>Rechercher un restaurant</h1>
     <form @submit.prevent="getRestaurantsFromServer()">
       <label>
-        <input placeholder="Search..." v-on="getRestaurantsFromServer" type="text" name="name" v-model="name" />
+        <input placeholder="Search..." class="form-control" type="text" name="name" v-model="name" />
       </label>
       <button>Rechercher</button>
     </form>
     <br>
-    <tr v-for="(r, index) in restaurants" :key="index">
+    <tr v-for="(r, index) in getFiltredRestaurant" :key="index">
       <CarteRestaurants
         @refresh="getRestaurantsFromServer()"
         :id="r._id"
@@ -64,6 +64,7 @@ export default {
   data: () => ({
     restaurants: [],
     name: "",
+    nom: "",
     cuisine: "",
     nbRestaurantsTotal: 0,
     page: 1,
@@ -148,5 +149,12 @@ export default {
       this.cuisine = "";
     },
   },
+  computed:{
+    getFiltredRestaurant: function(){
+      return this.restaurants.filter(resto => {
+        return resto.name.toLowerCase().includes(this.name.toLowerCase());
+      });
+    }
+  }
 };
 </script>
