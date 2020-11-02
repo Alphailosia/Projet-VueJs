@@ -3,20 +3,20 @@
     <h1>Nos Plats</h1>
     <h2>Hors d'œuvres</h2>
     <ul>
-      <v-card v-for="(de, index) in horsdOeuvre" :key="index">
-          <v-card-title>{{ de.name }}</v-card-title>
-          <img :src="de.photo" alt="photo">
-          <v-card-text> {{ de.description }} </v-card-text>
-          <v-card-text> {{ de.prix }}€ </v-card-text>
+      <v-card v-for="(ho, index) in horsdOeuvre" :key="index">
+          <v-card-title>{{ ho.name }}</v-card-title>
+          <img :src="ho.photo" alt="photo">
+          <v-card-text> {{ ho.description }} </v-card-text>
+          <v-card-text> {{ ho.prix }}€ </v-card-text>
       </v-card>
     </ul>
     <h2>Plats Du Jour</h2>
     <ul>
-      <v-card v-for="(de, index) in platDuJour" :key="index">
-          <v-card-title>{{ de.name }}</v-card-title>
-          <img :src="de.photo" alt="photo">
-          <v-card-text> {{ de.description }} </v-card-text>
-          <v-card-text> {{ de.prix }}€ </v-card-text>
+      <v-card v-for="(pl, index) in platDuJour" :key="index">
+          <v-card-title>{{ pl.name }}</v-card-title>
+          <img :src="pl.photo" alt="photo">
+          <v-card-text> {{ pl.description }} </v-card-text>
+          <v-card-text> {{ pl.prix }}€ </v-card-text>
       </v-card>
     </ul>
     <h2>Dessert</h2>

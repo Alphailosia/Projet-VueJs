@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    <h1>Ajouter un restaurant</h1>
     <form @submit.prevent="ajouterRestaurant()">
       <label>
         Nom : <input type="text" name="nom" required v-model="name" />
@@ -11,8 +12,7 @@
 
       <button>Ajouter</button>
     </form>
-
-    <h1>Nombre de restaurants : {{ nbRestaurantsTotal }}</h1>
+    <h1>Info page :</h1>
     <p>
       Nombre de restaurants par page
       <input
@@ -32,7 +32,15 @@
       @input="getRestaurantsFromServer()"
       circle
     ></v-pagination>
-    <p>Nombre total de pages : {{ nbPagesTotal }}</p>
+
+    <h1>Rechercher un restaurant</h1>
+    <form @submit.prevent="getRestaurantsFromServer()">
+      <label>
+        Nom : <input type="text" name="nom" v-model="name" />
+      </label>
+      <button>Rechercher</button>
+    </form>
+    <br>
     <tr v-for="(r, index) in restaurants" :key="index">
       <CarteRestaurants
         @refresh="getRestaurantsFromServer()"
@@ -98,6 +106,9 @@ export default {
       let url = "http://localhost:8080/api/restaurants?";
       url += "page=" + (this.page - 1);
       url += "&pagesize=" + this.pageSize;
+      if(this.name!==""){
+        url += "&name=" + this.name;
+      }
       fetch(url)
         .then((responseJSON) => {
           responseJSON.json().then((resJS) => {
