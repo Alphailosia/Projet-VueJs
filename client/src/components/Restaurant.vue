@@ -13,6 +13,7 @@
       <button>Ajouter</button>
     </form>
     <h1>Info page :</h1>
+    <p> Nombre de restaurants : {{ nbRestaurantsTotal }}, Nombre total de pages : {{ nbPagesTotal }}</p>
     <p>
       Nombre de restaurants par page
       <input
