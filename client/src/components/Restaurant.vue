@@ -13,7 +13,10 @@
       <button>Ajouter</button>
     </form>
     <h1>Info page :</h1>
-    <p> Nombre de restaurants : {{ nbRestaurantsTotal }}, Nombre total de pages : {{ nbPagesTotal }}</p>
+    <p>
+      Nombre de restaurants : {{ nbRestaurantsTotal }}, Nombre total de pages :
+      {{ nbPagesTotal }}
+    </p>
     <p>
       Nombre de restaurants par page
       <input
@@ -37,12 +40,19 @@
     <h1>Rechercher un restaurant</h1>
     <form @submit.prevent="getRestaurantsFromServer()">
       <label>
-        <input placeholder="Search..." class="form-control" type="text" name="name" v-model="name" />
+        <input
+          placeholder="Search..."
+          @input="chercherResto()"
+          class="form-control"
+          type="text"
+          name="name"
+          v-model="name"
+        />
       </label>
       <button>Rechercher</button>
     </form>
-    <br>
-    <tr v-for="(r, index) in getFiltredRestaurant" :key="index">
+    <br />
+    <tr v-for="(r, index) in restaurants" :key="index">
       <CarteRestaurants
         @refresh="getRestaurantsFromServer()"
         :id="r._id"
@@ -56,6 +66,7 @@
 
 <script>
 import CarteRestaurants from "./CarteRestaurants";
+import _ from "lodash";
 
 export default {
   components: {
@@ -97,8 +108,8 @@ export default {
       let nbReelPage = this.nbRestaurantsTotal / this.pageSize;
       let pageRound = Math.round(nbReelPage);
       console.log(nbReelPage);
-      if ( nbReelPage > pageRound ) {
-        this.nbPagesTotal = pageRound+1;
+      if (nbReelPage > pageRound) {
+        this.nbPagesTotal = pageRound + 1;
       } else {
         this.nbPagesTotal = pageRound;
       }
@@ -108,7 +119,7 @@ export default {
       let url = "http://localhost:8080/api/restaurants?";
       url += "page=" + (this.page - 1);
       url += "&pagesize=" + this.pageSize;
-      if(this.name!==""){
+      if (this.name !== "") {
         url += "&name=" + this.name;
       }
       fetch(url)
@@ -120,7 +131,7 @@ export default {
             this.nbRestaurantsTotal = resJS.count;
             this.calculNbPageMax();
             this.calculNoteMoyenne();
-            if(this.restaurants.length===0){
+            if (this.restaurants.length === 0) {
               this.page--;
               this.getRestaurantsFromServer();
             }
@@ -148,13 +159,10 @@ export default {
       this.nom = "";
       this.cuisine = "";
     },
+    chercherResto:
+      _.debounce(function () {
+        this.getRestaurantsFromServer();
+      }, 300)
   },
-  computed:{
-    getFiltredRestaurant: function(){
-      return this.restaurants.filter(resto => {
-        return resto.name.toLowerCase().includes(this.name.toLowerCase());
-      });
-    }
-  }
 };
 </script>
