@@ -12,11 +12,6 @@
 
       <button>Ajouter</button>
     </form>
-    <h1>Info page :</h1>
-    <p>
-      Nombre de restaurants : {{ nbRestaurantsTotal }}, Nombre total de pages :
-      {{ nbPagesTotal }}
-    </p>
     <p>
       Nombre de restaurants par page
       <input
@@ -40,16 +35,16 @@
     <h1>Rechercher un restaurant</h1>
     <form @submit.prevent="getRestaurantsFromServer()">
       <label>
-        <input
-          placeholder="Search..."
-          @input="chercherResto()"
-          class="form-control"
-          type="text"
-          name="name"
-          v-model="name"
-        />
+        <input placeholder="Search..." @input="chercherResto()" class="form-control" type="text" name="name" v-model="name" />
+        <v-alert v-if="this.name && this.restaurants.length >0"> 
+          {{nbRestaurantsTotal}} restaurant<span v-if="this.restaurants.length >1">s</span> trouvé<span v-if="this.restaurants.length >1">s</span> 
+        </v-alert>
+        <div> 
+          <v-alert v-if="this.name && this.restaurants.length ===0">
+            <img src="https://media.tenor.com/images/4077fe524ba38a05b97c37865167da9c/tenor.gif" alt="gif"> 0 restaurant trouvé 
+          </v-alert>
+        </div>
       </label>
-      <button>Rechercher</button>
     </form>
     <br />
     <tr v-for="(r, index) in restaurants" :key="index">
@@ -66,7 +61,7 @@
 
 <script>
 import CarteRestaurants from "./CarteRestaurants";
-import _ from "lodash";
+import { debounce } from "lodash";
 
 export default {
   components: {
@@ -131,7 +126,7 @@ export default {
             this.nbRestaurantsTotal = resJS.count;
             this.calculNbPageMax();
             this.calculNoteMoyenne();
-            if (this.restaurants.length === 0) {
+            if (this.restaurants.length === 0 && this.name==="") {
               this.page--;
               this.getRestaurantsFromServer();
             }
@@ -160,7 +155,7 @@ export default {
       this.cuisine = "";
     },
     chercherResto:
-      _.debounce(function () {
+      debounce(function () {
         this.getRestaurantsFromServer();
       }, 300)
   },
