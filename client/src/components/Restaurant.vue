@@ -126,7 +126,11 @@ export default {
             this.nbRestaurantsTotal = resJS.count;
             this.calculNbPageMax();
             this.calculNoteMoyenne();
-            if (this.restaurants.length === 0 && this.name==="") {
+            if (this.restaurants.length === 0 && this.name==="" ) {
+              this.page--;
+              this.getRestaurantsFromServer();
+            }
+            else if(this.restaurants.length === 0 && this.name!=="" && this.page>1 ) {
               this.page--;
               this.getRestaurantsFromServer();
             }
