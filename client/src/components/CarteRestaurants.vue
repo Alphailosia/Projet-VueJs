@@ -1,12 +1,14 @@
 <template>
   <v-card class="mb-5">
+    <div id="oskour">
     <v-card-title>Restaurant : {{ nom }}</v-card-title>
+      <v-btn icon><router-link :to="'/restaurant/'+id" style="text-decoration: none"><v-icon style="color:black">mdi-information-outline</v-icon></router-link></v-btn>
+      </div>
     <v-card-text>Cuisine : {{ cuisine }}</v-card-text>
     <v-card-text>Note : {{ note }}</v-card-text>
-    <v-card-actions>
-      <v-btn @click="envoieRequeteFetchDelete()">Supprimer</v-btn>
-      <v-btn @click="formModifRestaurant()">Modifier</v-btn>
-      <v-btn><router-link :to="'/restaurant/'+id"> Detail </router-link></v-btn>
+    <v-card-actions id="boutons">
+      <v-btn @click="formModifRestaurant()"><v-icon>mdi-pencil</v-icon></v-btn>
+      <v-btn @click="envoieRequeteFetchDelete()"><v-icon>mdi-delete</v-icon></v-btn>
     </v-card-actions>
     <form v-if="formDisabled"   @submit.prevent="modificationRestaurant()">
       <label>
@@ -77,3 +79,15 @@ export default {
   },
 };
 </script>
+<style scoped>
+#oskour
+{
+  display:flex;
+  justify-content: space-between; 
+}
+
+#boutons{
+    display: flex;
+    justify-content: flex-end;
+}
+</style>
