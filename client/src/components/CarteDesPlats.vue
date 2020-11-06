@@ -28,20 +28,44 @@
           <v-card-text> {{ de.prix }}€ </v-card-text>
       </v-card>
     </ul>
+  <v-btn @click="affichePlatDuJour()">Plat du Jour</v-btn>
+  <v-btn @click="afficheMenuGastro()">Menu Gastronomique</v-btn>
+  <div v-if="togglePlatDuJour">
+    <h1>Plat du Jour</h1>
+    <Menu
+    :ho="horsdOeuvre[0]"
+    :pl="platDuJour[0]"
+    :de="dessert[0]"
+    />
+  </div>
+  <div v-if="toggleMenuGastronomique">
+    <h1>Menu Gastronomique</h1>
+    <Menu
+    :ho="horsdOeuvre[1]"
+    :pl="platDuJour[1]"
+    :de="dessert[1]"
+    />
+  </div>
   </v-container>
 </template>
 
 <script>
+import Menu from "./Menu"
 import Plats from "../plats.json"
 
 export default {
   name: "cartedesplats",
+  components: {
+    Menu
+  },
   data: () => ({
     horsdOeuvre: [],
     platDuJour: [],
     dessert: [],
     carte: [],
-    lejson: []
+    lejson: [],
+    togglePlatDuJour: false,
+    toggleMenuGastronomique: false
   }),
   mounted() {
       this.lejson = Plats;
@@ -68,6 +92,12 @@ export default {
           for(let d of this.carte[3].dessert){
               this.dessert.push(d);
           }
+      },
+      affichePlatDuJour: function(){
+        this.togglePlatDuJour = !this.togglePlatDuJour;
+      },
+      afficheMenuGastro: function(){
+        this.toggleMenuGastronomique = !this.toggleMenuGastronomique;
       }
   }
 };
