@@ -42,7 +42,7 @@
                 type="text"
                 name="name"
                 v-model="name"
-              />
+              /> <v-icon>mdi-magnify</v-icon>
               <v-alert v-if="this.name && this.restaurants.length > 0">
                 {{ nbRestaurantsTotal }} restaurant<span
                   v-if="this.restaurants.length > 1"
@@ -87,7 +87,7 @@
           circle
         ></v-pagination>
         <div id="resto">
-          <tr v-for="(r, index) in restaurants" :key="index" class="pa-3">
+          <tr v-for="(r, index) in restaurants" :key="index" class="carte-resto"><router-link :to="'/restaurant/'+r._id" style="text-decoration: none">
             <CarteRestaurants
               @refresh="getRestaurantsFromServer()"
               :id="r._id"
@@ -95,6 +95,7 @@
               :cuisine="r.cuisine"
               :note="r.note"
             />
+            </router-link>
           </tr>
         </div>
         <p>
@@ -285,5 +286,16 @@ export default {
 
 .menu-items {
   margin-top: 15%;
+}
+
+.carte-resto :hover {
+  /*-webkit-transform: scale(1.1);
+	transform: scale(1.1);*/
+  background-color: #DDE8EB;
+}
+
+.form-control {
+  border: solid 1px;
+  border-radius: 4px;
 }
 </style>

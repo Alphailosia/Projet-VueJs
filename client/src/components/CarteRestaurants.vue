@@ -2,7 +2,6 @@
   <v-card class="mb-5">
     <div id="oskour">
     <v-card-title>Restaurant : {{ nom }}</v-card-title>
-      <v-btn icon><router-link :to="'/restaurant/'+id" style="text-decoration: none"><v-icon style="color:black">mdi-information-outline</v-icon></router-link></v-btn>
       </div>
     <v-card-text>Cuisine : {{ cuisine }}</v-card-text>
     <v-card-text>Note : {{ note }}</v-card-text>
