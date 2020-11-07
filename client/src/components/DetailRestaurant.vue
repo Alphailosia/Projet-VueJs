@@ -1,7 +1,9 @@
 <template>
   <v-container>
-    
-    <h1 class="title-restaurant" id="nom-resto">{{ resto.name }}</h1>
+    <router-link :to="'/'" style="text-decoration: none" >
+    <v-icon x-large>mdi-arrow-left-circle</v-icon>
+    </router-link>
+    <h1 class="title-restaurant">{{ resto.name }}</h1>
     <div class="informations-container">
       <img :src="addImage()" alt="image resto" />
       <div class="informations">
@@ -158,6 +160,5 @@ export default {
   margin-right: 100px;
   margin-left: 100px;
 }
-
 
 </style>

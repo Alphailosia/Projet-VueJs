@@ -10,22 +10,14 @@
           <v-list nav dense>
             <v-list-item link class="menu-items">
               <v-list-item-icon>
-                <v-icon>mdi-home</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>Acceuil</v-list-item-title>
-            </v-list-item>
-            <v-list-item link class="menu-items">
-              <v-list-item-icon>
                 <v-icon>mdi-plus-circle</v-icon>
               </v-list-item-icon>
               <v-list-item-title>Ajouter des restaurants</v-list-item-title>
             </v-list-item>
             <v-list-item link class="menu-items">
-              <v-list-item-icon>
-                <v-icon>mdi-star</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>?</v-list-item-title>
+              <v-list-item-title>????</v-list-item-title>
             </v-list-item>
+            
           </v-list>
         </v-navigation-drawer>
       </div>
@@ -87,7 +79,7 @@
           circle
         ></v-pagination>
         <div id="resto">
-          <tr v-for="(r, index) in restaurants" :key="index" class="carte-resto"><router-link :to="'/restaurant/'+r._id" href="#nom-resto" style="text-decoration: none" >
+          <tr v-for="(r, index) in restaurants" :key="index" >
             <CarteRestaurants
               @refresh="getRestaurantsFromServer()"
               :id="r._id"
@@ -95,7 +87,6 @@
               :cuisine="r.cuisine"
               :note="r.note"
             />
-            </router-link>
           </tr>
         </div>
         <p>
