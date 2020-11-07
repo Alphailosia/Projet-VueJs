@@ -8,14 +8,29 @@
           </v-list>
           <v-divider></v-divider>
           <v-list nav dense>
+            <v-list-item @click="accueilRestaurant()" link class="menu-items">
+              <v-list-item-icon>
+                <v-icon>mdi-home</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Accueil des restaurants</v-list-item-title>
+            </v-list-item>
             <v-list-item link class="menu-items">
               <v-list-item-icon>
                 <v-icon>mdi-plus-circle</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>Ajouter des restaurants</v-list-item-title>
+              <v-list-item-title><router-link :to="'/ajout'">Ajouter des restaurants</router-link></v-list-item-title>
             </v-list-item>
-            <v-list-item link class="menu-items">
-              <v-list-item-title>????</v-list-item-title>
+            <v-list-item @click="modifierRestaurant()" class="menu-items">
+              <v-list-item-icon>
+                <v-icon>mdi-pencil</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Modifier des restaurants</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="supprimerRestaurant()" class="menu-items">
+              <v-list-item-icon>
+                <v-icon>mdi-delete</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Supprimer des restaurants</v-list-item-title>
             </v-list-item>
             
           </v-list>
@@ -54,22 +69,6 @@
             </label>
           </form>
         </div>
-        <h1>Ajouter un restaurant</h1>
-        <form @submit.prevent="ajouterRestaurant()">
-          <label>
-            Nom : <input type="text" name="nom" required v-model="nom" />
-          </label>
-          <label>
-            Cuisine :
-            <input type="text" name="cuisine" required v-model="cuisine" />
-          </label>
-
-          <button @click="snackbar = true">Ajouter</button>
-          <v-snackbar :timeout="2000" v-model="snackbar" color="success">
-            Le restaurant a bien été ajouté.
-          </v-snackbar>
-        </form>
-
         <br />
         <v-pagination
           v-model="page"
@@ -86,6 +85,8 @@
               :nom="r.name"
               :cuisine="r.cuisine"
               :note="r.note"
+              :modifResto="modifResto"
+              :deleteResto="deleteResto"
             />
           </tr>
         </div>
@@ -131,6 +132,8 @@ export default {
     pageSize: 10,
     nbPagesTotal: 0,
     snackbar: false,
+    modifResto:false,
+    deleteResto:false
   }),
   watch: {
     groupe() {
@@ -220,6 +223,21 @@ export default {
       this.getRestaurantsFromServer();
       this.nom = "";
       this.cuisine = "";
+    },
+    modifierRestaurant: function(){
+      this.modifResto=true;
+      this.deleteResto=false;
+      this.getRestaurantsFromServer();
+    },
+    supprimerRestaurant: function(){
+      this.modifResto=false;
+      this.deleteResto=true;
+      this.getRestaurantsFromServer();
+    },
+    accueilRestaurant: function(){
+      this.modifResto=false;
+      this.deleteResto=false;
+      this.getRestaurantsFromServer();
     },
     chercherResto: debounce(function () {
       this.getRestaurantsFromServer();

@@ -6,9 +6,9 @@
     <v-card-text>Cuisine : {{ cuisine }}</v-card-text>
     <v-card-text>Note : {{ note }}</v-card-text>
     <v-card-actions id="boutons">
-      <v-btn ><router-link :to="'/restaurant/'+id" style="text-decoration: none" >Détails</router-link></v-btn>
-      <v-btn @click="formModifRestaurant()"><v-icon>mdi-pencil</v-icon></v-btn>
-      <v-btn @click="envoieRequeteFetchDelete()"><v-icon>mdi-delete</v-icon></v-btn>
+      <v-btn v-if="!modifResto && !deleteResto" ><router-link :to="'/restaurant/'+id" style="text-decoration: none" >Détails</router-link></v-btn>
+      <v-btn v-if="modifResto && !deleteResto" @click="formModifRestaurant()"><v-icon>mdi-pencil</v-icon></v-btn>
+      <v-btn v-if="!modifResto && deleteResto" @click="envoieRequeteFetchDelete()"><v-icon>mdi-delete</v-icon></v-btn>
     </v-card-actions>
     <form v-if="formDisabled"   @submit.prevent="modificationRestaurant()">
       <label>
@@ -30,7 +30,9 @@ export default {
     id: String,
     nom: String,
     cuisine: String,
-    note: Number
+    note: Number,
+    modifResto: Boolean,
+    deleteResto: Boolean
   },
   data: () => ({
     formDisabled: false,

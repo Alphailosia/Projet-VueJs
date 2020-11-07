@@ -4,6 +4,7 @@ import vuetify from './plugins/vuetify';
 import VueRouter from 'vue-router';
 import Restaurant from './components/Restaurant'
 import DetailRestaurant from './components/DetailRestaurant'
+import AjoutRestaurant from './components/AjoutRestaurant'
 
 Vue.config.productionTip = false
 Vue.use(VueRouter);
@@ -18,6 +19,10 @@ const router = new VueRouter({
     {
       path: '/restaurant/:id',
       component: DetailRestaurant
+    },
+    {
+      path: '/ajout',
+      component: AjoutRestaurant
     }
   ],
   mode: 'history',
