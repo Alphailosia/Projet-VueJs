@@ -283,6 +283,7 @@ export default {
   position: absolute;
   top: 0;
   right: 0;
+  margin-top: 20px;
 }
 
 .menu-items {

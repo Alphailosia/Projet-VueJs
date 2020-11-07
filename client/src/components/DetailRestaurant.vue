@@ -1,5 +1,6 @@
 <template>
   <v-container>
+    
     <h1 class="title-restaurant" id="nom-resto">{{ resto.name }}</h1>
     <div class="informations-container">
       <img :src="addImage()" alt="image resto" />

@@ -34,14 +34,17 @@
         </div>
       </v-card>
     </ul>
-    <v-btn @click="affichePlatDuJour()" :disabled="togglePlatDuJour">Plat du Jour</v-btn>
-    <v-btn @click="affichePlatDuJour()" :disabled="!togglePlatDuJour">Menu Gastronomique</v-btn>
-    <div v-if="togglePlatDuJour">
-      <h1>Plat du Jour</h1>
+      <div class="choix-menu">
+      <h1>Choix du menu : </h1>
+    <v-btn class="btn" @click="affichePlatDuJour()" :disabled="!togglePlatDuJour">Menu de midi</v-btn>
+    <v-btn class="btn" @click="affichePlatDuJour()" :disabled="togglePlatDuJour">Menu Gastronomique</v-btn>
+      </div>
+    <div v-if="!togglePlatDuJour" class="liste-menu">
+      <h2>Menu de midi</h2>
       <Menu :ho="horsdOeuvre[0]" :pl="platDuJour[0]" :de="dessert[0]" />
     </div>
-    <div v-if="!togglePlatDuJour">
-      <h1>Menu Gastronomique</h1>
+    <div v-if="togglePlatDuJour">
+      <h2>Menu Gastronomique</h2>
       <Menu :ho="horsdOeuvre[1]" :pl="platDuJour[1]" :de="dessert[1]" />
     </div>
   </v-container>
@@ -127,4 +130,17 @@ export default {
 .type-plat {
   margin-top: 30px;
 }
+
+.choix-menu {
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.btn {
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
 </style>
