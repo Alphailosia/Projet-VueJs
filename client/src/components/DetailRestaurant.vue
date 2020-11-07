@@ -1,19 +1,27 @@
 <template>
   <v-container>
-    <h1>Détail du restaurant : </h1>
-    <img :src="addImage()" alt="image resto">  
-    <p>Nom : {{ resto.name }}</p>
-    <p>Cuisine : {{ resto.cuisine }}</p>
-    <p>Note : {{ note }}</p>
-    <p>Ville : {{ resto.borough }}</p>
-    <iframe
-      title="resto map"
-      width="60%"
-      height="400px"
-      :src="url"
-      style="border-radius: 20px"
-    ></iframe>
-    <CarteDesPlats/>
+    <h1 class="title-restaurant">{{ resto.name }}</h1>
+    <div class="informations-container">
+      <img :src="addImage()" alt="image resto" />
+      <div class="informations">
+        <p>Cuisine : {{ resto.cuisine }}</p>
+        <p>Note : {{ note }}</p>
+        <p>Ville : {{ resto.borough }}</p>
+      </div>
+    </div>
+    <div class="map-container">
+      <h2 class="title-map">Localisation</h2>
+      <div class="map">
+      <iframe
+        title="resto map"
+        width="100%"
+        height="400px"
+        :src="url"
+        style="border-radius: 20px"
+      ></iframe>
+      </div>
+    </div>
+    <CarteDesPlats />
   </v-container>
 </template>
 
@@ -23,7 +31,7 @@ import CarteDesPlats from "./CarteDesPlats";
 export default {
   name: "restaurant",
   components: {
-    CarteDesPlats
+    CarteDesPlats,
   },
   data: () => ({
     resto: {},
@@ -38,9 +46,9 @@ export default {
       "https://cdn.discordapp.com/attachments/762755906634907659/771743771875606558/mg-2178-1-200x300.png",
       "https://cdn.discordapp.com/attachments/762755906634907659/771743953304682536/IMG_6807_300x300.png",
       "https://cdn.discordapp.com/attachments/762755906634907659/771743956642824212/restaurante-03-200x300.png",
-      "https://cdn.discordapp.com/attachments/762755906634907659/771744025468207114/57180308.png"
+      "https://cdn.discordapp.com/attachments/762755906634907659/771744025468207114/57180308.png",
     ],
-    note:0
+    note: 0,
   }),
   computed: {
     id() {
@@ -52,18 +60,18 @@ export default {
   },
   methods: {
     calculNoteMoyenne: function () {
-        if (this.resto.grades === undefined) {
-          this.note = "Non renseigné";
-        } else {
-          let moyenne = 0;
-          let sommeTotal = 0;
-          for (let note of this.resto.grades) {
-            sommeTotal += note.score;
-          }
-          moyenne = sommeTotal / this.resto.grades.length;
-          console.log(moyenne);
-          this.note = Math.round(moyenne)+"";
+      if (this.resto.grades === undefined) {
+        this.note = "Non renseigné";
+      } else {
+        let moyenne = 0;
+        let sommeTotal = 0;
+        for (let note of this.resto.grades) {
+          sommeTotal += note.score;
         }
+        moyenne = sommeTotal / this.resto.grades.length;
+        console.log(moyenne);
+        this.note = Math.round(moyenne) + "";
+      }
     },
     getRestoFromeServer: async function () {
       let url = "http://localhost:8080/api/restaurants/";
@@ -93,12 +101,49 @@ export default {
 
       this.url = `http://www.openstreetmap.org/export/embed.html?bbox=${lgndown}%2C${latleft}%2C${lgnup}%2C${latright}&layer=mapnik&marker=${lat}%2C${lgn}`;
     },
-    addImage: function (){
-      let index = Math.random()*9;
+    addImage: function () {
+      let index = Math.random() * 9;
       index = Math.round(index);
       console.log(index);
       return this.images[index];
-    } 
+    },
   },
 };
 </script>
+
+<style scoped>
+.title-restaurant {
+  line-height: 200px;
+  font-size: 3em;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  text-align: center;
+}
+
+.informations-container {
+  display: flex;
+  justify-content: center;
+}
+
+.informations {
+  padding-left: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.map-container {
+  width: 100%;
+  margin-top: 100px;
+}
+
+.title-map {
+  text-align: center;
+}
+
+.map {
+  margin-right: 100px;
+  margin-left: 100px;
+}
+
+
+</style>
