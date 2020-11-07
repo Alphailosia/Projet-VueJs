@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <h1 class="title-restaurant">{{ resto.name }}</h1>
+    <h1 class="title-restaurant" id="nom-resto">{{ resto.name }}</h1>
     <div class="informations-container">
       <img :src="addImage()" alt="image resto" />
       <div class="informations">
@@ -22,6 +22,7 @@
       </div>
     </div>
     <CarteDesPlats />
+ 
   </v-container>
 </template>
 
@@ -112,6 +113,18 @@ export default {
 </script>
 
 <style scoped>
+
+
+.title-menu {
+  text-align: center;
+  height: 3%;
+}
+
+.menu-items {
+  margin-top: 15%;
+}
+
+
 .title-restaurant {
   line-height: 200px;
   font-size: 3em;

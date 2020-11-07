@@ -20,7 +20,17 @@ const router = new VueRouter({
       component: DetailRestaurant
     }
   ],
-  mode: 'history'
+  mode: 'history',
+  scrollBehavior (to, from, savedPosition) {
+    //https://router.vuejs.org/guide/advanced/scroll-behavior.html
+    if (to.hash) {
+            return { selector: to.hash }
+        } else if (savedPosition) {
+            return savedPosition;
+        } else {
+            return { x: 0, y: 0 }
+        }
+  },
 })
 
 new Vue({

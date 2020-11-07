@@ -10,13 +10,13 @@
           <v-list nav dense>
             <v-list-item link class="menu-items">
               <v-list-item-icon>
-                <v-icon>mdi-folder</v-icon>
+                <v-icon>mdi-home</v-icon>
               </v-list-item-icon>
               <v-list-item-title>Acceuil</v-list-item-title>
             </v-list-item>
             <v-list-item link class="menu-items">
               <v-list-item-icon>
-                <v-icon>mdi-account-multiple</v-icon>
+                <v-icon>mdi-plus-circle</v-icon>
               </v-list-item-icon>
               <v-list-item-title>Ajouter des restaurants</v-list-item-title>
             </v-list-item>
@@ -87,7 +87,7 @@
           circle
         ></v-pagination>
         <div id="resto">
-          <tr v-for="(r, index) in restaurants" :key="index" class="carte-resto"><router-link :to="'/restaurant/'+r._id" style="text-decoration: none">
+          <tr v-for="(r, index) in restaurants" :key="index" class="carte-resto"><router-link :to="'/restaurant/'+r._id" href="#nom-resto" style="text-decoration: none" >
             <CarteRestaurants
               @refresh="getRestaurantsFromServer()"
               :id="r._id"
@@ -103,9 +103,9 @@
           <input
             @change="getRestaurantsFromServer()"
             type="range"
-            min="5"
+            min="10"
             max="100"
-            step="5"
+            step="10"
             v-model="pageSize"
           />
           {{ pageSize }}
@@ -260,6 +260,7 @@ export default {
   margin: auto;
   width: auto;
   display: inline-block;
+  
 }
 
 .title-container {
