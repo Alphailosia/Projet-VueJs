@@ -40,7 +40,7 @@
 
       <div id="home">
         <div class="title-container">
-          <h1 class="title-home">Restaurants</h1>
+          <h1 class="title-home">Mes Restaurants</h1>
           <form @submit.prevent="getRestaurantsFromServer()" class="searchBar">
             <label>
               <input
@@ -82,7 +82,7 @@
         <div id="resto">
             <CarteRestaurants
               @refresh="getRestaurantsFromServer()"
-              :index="index"
+              :index="index+page*10"
               :id="r._id"
               :nom="r.name"
               :cuisine="r.cuisine"

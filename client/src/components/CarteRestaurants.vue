@@ -132,6 +132,11 @@ export default {
   mounted() {
     this.resto2 = this.resto;
     this.srcImage="https://picsum.photos/200/300?random="+this.index;
+    
+  },
+  updated(){
+    this.srcImage="https://picsum.photos/200/300?random="+this.index;
+    console.log(this.index);
   },
   methods: {
     envoieRequeteFetchDelete: function () {
