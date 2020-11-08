@@ -12,27 +12,27 @@
               <v-list-item-icon>
                 <v-icon>mdi-home</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>Accueil des restaurants</v-list-item-title>
+              <v-list-item-title class="menu-props">Accueil des restaurants</v-list-item-title>
             </v-list-item>
             <router-link :to="'/ajout'" class="lien-ajout">
               <v-list-item link class="menu-items">
                 <v-list-item-icon>
                   <v-icon>mdi-plus-circle</v-icon>
                 </v-list-item-icon>
-                <v-list-item-title>Ajouter des restaurants</v-list-item-title>
+                <v-list-item-title class="menu-props">Ajouter des restaurants</v-list-item-title>
               </v-list-item>
             </router-link>
             <v-list-item @click="modifierRestaurant()" class="menu-items">
               <v-list-item-icon>
                 <v-icon>mdi-pencil</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>Modifier des restaurants</v-list-item-title>
+              <v-list-item-title class="menu-props">Modifier des restaurants</v-list-item-title>
             </v-list-item>
             <v-list-item @click="supprimerRestaurant()" class="menu-items">
               <v-list-item-icon>
                 <v-icon>mdi-delete</v-icon>
               </v-list-item-icon>
-              <v-list-item-title>Supprimer des restaurants</v-list-item-title>
+              <v-list-item-title class="menu-props">Supprimer des restaurants</v-list-item-title>
             </v-list-item>
           </v-list>
         </v-navigation-drawer>
@@ -272,7 +272,15 @@ export default {
 
 .title-menu {
   text-align: center;
-  height: 3%;
+  height: 5%;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  margin-top: 4%;
+  font-size: 30px;
+}
+
+.menu-props {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: 2;
 }
 
 .searchBar {
