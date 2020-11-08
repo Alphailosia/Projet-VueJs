@@ -25,4 +25,4 @@ Toujours sur cette page, nous pouvons trouver sur la gauche un menu permetant d'
 - Pour finir, la partie suppression, va servir à supprimer un restaurant du site et de la base de données rien qu'en appuyant sur l'icone indiquée. 
 
 ## Lien de la vidéo :  
-
+https://youtu.be/FcG-HyzJcmc 
