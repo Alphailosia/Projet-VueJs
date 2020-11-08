@@ -12,17 +12,116 @@
       <v-btn v-if="modifResto && !deleteResto" @click="formModifRestaurant()"><v-icon>mdi-pencil</v-icon></v-btn>
       <v-btn v-if="!modifResto && deleteResto" @click="envoieRequeteFetchDelete()"><v-icon>mdi-delete</v-icon></v-btn>
     </v-card-actions>
-    <form v-if="formDisabled"   @submit.prevent="modificationRestaurant()">
-      <label>
-        Nom : <input type="text" name="nom" required v-model="nomModif" />
-      </label>
-      <label>
-        Cuisine :
-        <input type="text" name="cuisine" required v-model="cuisineModif" />
-      </label>
-
-      <button>Modifier</button>
-    </form>
+     <v-dialog
+      v-model="dialog"
+      persistent
+      max-width="600px"
+    >
+      <v-card>
+        <v-card-title>
+          <span class="headline">User Profile</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col
+                cols="12"
+                sm="6"
+                md="4"
+              >
+                <v-text-field
+                  label="Nom"
+                  name="nom"
+                  v-model="resto.name"
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col
+                cols="12"
+                sm="6"
+                md="4"
+              >
+                <v-text-field
+                  label="Cuisine"
+                  name="cuisine"
+                  v-model="resto.cuisine"
+                ></v-text-field>
+              </v-col>
+              <v-col
+                cols="12"
+                sm="6"
+                md="4"
+              >
+                <v-text-field
+                  label="Coordonnée 1"
+                  name="coord1"
+                  v-model="resto.address.coord[0]"
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  label="Coordonnée 2"
+                  name="coord2"
+                  v-model="resto.address.coord[1]"
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  label="Ville"
+                  name="borough"
+                  v-model="resto.borough"
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  label="Bâtiment"
+                  name="building"
+                  v-model="resto.address.building"
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  label="Rue"
+                  name="street"
+                  v-model="resto.address.street"
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  label="Code Postal"
+                  name="zipcode"
+                  v-model="resto.address.zipcode"
+                  required
+                ></v-text-field>
+              </v-col>
+            </v-row>
+          </v-container>
+          <small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="fermerDialogue()"
+          >
+            Close
+          </v-btn>
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="modificationRestaurant()"
+          >
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
@@ -35,12 +134,17 @@ export default {
     note: Number,
     modifResto: Boolean,
     deleteResto: Boolean,
-    formDisabled: Boolean
+    formDisabled: Boolean,
+    resto: Object,
   },
   data: () => ({
-    nomModif: "",
-    cuisineModif: ""
+    dialog: false,
+    resto2:{
+    }
   }),
+  mounted() {
+    this.resto2=this.resto;
+  },
   methods: {
     envoieRequeteFetchDelete: function () {
       let url = "http://localhost:8080/api/restaurants/" + this.id;
@@ -59,12 +163,18 @@ export default {
         });
     },
     formModifRestaurant: function(){
-      this.formDisabled = !this.formDisabled;
+      this.dialog = true;
     },
     modificationRestaurant: async function () {
       const pms = {
-        nom: this.nomModif,
-        cuisine: this.cuisineModif
+        nom: this.resto.name,
+        cuisine: this.resto.cuisine,
+        coord1: this.resto.address.coord[0],
+        coord2: this.resto.address.coord[1],
+        borough: this.resto.borough,
+        building: this.resto.address.building,
+        street: this.resto.address.street,
+        zipcode: this.resto.address.zipcode,
       }
       console.log("modif sur ",pms)
       const url = new URL('http://localhost:8080/api/restaurants/'+this.id),
@@ -74,8 +184,22 @@ export default {
       const json = await res.json;
       console.log(json.data);
       this.$emit("refresh");
-      this.nomModif = "";
-      this.cuisineModif ="";
+      this.dialog=false;
+    },
+    fermerDialogue: function(){
+      this.nom=this.resto2.name;
+      this.cuisine=this.resto2.cuisine;
+      this.resto.name=this.resto2.name;
+      this.resto.cuisine=this.resto2.cuisine;
+      this.resto.borough=this.resto2.borough;
+      this.resto.address.coord[0]=this.resto2.address.coord[0];
+      this.resto.address.coord[1]=this.resto2.address.coord[1];
+      this.resto.address.building=this.resto2.address.building;
+      this.resto.address.street=this.resto2.address.street;
+      this.resto.address.zipcode=this.resto2.address.zipcode;
+      this.dialog=false;
+      console.log(this.resto2);
+      
     }
   }
 };

@@ -187,7 +187,14 @@ exports.updateRestaurant = function(id, formData, callback) {
             let myquery = { "_id": ObjectId(id)};
 	        let newvalues = {
 	        	name : formData.nom, 
-	        	cuisine : formData.cuisine
+				cuisine : formData.cuisine,
+				borough : formData.borough,
+				address : {
+					building:formData.building,
+					coord :[parseFloat(formData.coord1),parseFloat(formData.coord2)],
+					street : formData.street,
+					zipcode: formData.zipcode
+				}
 	        };
 
 

@@ -88,7 +88,7 @@
               :note="r.note"
               :modifResto="modifResto"
               :deleteResto="deleteResto"
-              :formDisabled="formDisabled"
+              :resto="r"
               v-for="(r, index) in restaurants" :key="index"
             />
         </div>
@@ -133,7 +133,6 @@ export default {
     nbPagesTotal: 0,
     modifResto: false,
     deleteResto: false,
-    formDisabled: false,
   }),
   watch: {
     groupe() {
