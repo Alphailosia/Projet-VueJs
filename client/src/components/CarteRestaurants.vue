@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mb-5">
+  <v-card class="organisation">
     <div id="oskour">
     <v-card-title>Restaurant : {{ nom }}</v-card-title>
       </div>
@@ -79,8 +79,7 @@ export default {
 };
 </script>
 <style scoped>
-#oskour
-{
+#oskour{
   display:flex;
   justify-content: space-between; 
   margin-top: 20px;
@@ -89,5 +88,11 @@ export default {
 #boutons{
     display: flex;
     justify-content: flex-end;
+}
+
+.organisation {
+  width: 40%;
+  margin-left: 30px;
+  margin-top: 30px;
 }
 </style>

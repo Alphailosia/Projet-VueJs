@@ -14,12 +14,14 @@
               </v-list-item-icon>
               <v-list-item-title>Accueil des restaurants</v-list-item-title>
             </v-list-item>
-            <v-list-item link class="menu-items">
-              <v-list-item-icon>
-                <v-icon>mdi-plus-circle</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title><router-link :to="'/ajout'">Ajouter des restaurants</router-link></v-list-item-title>
-            </v-list-item>
+            <router-link :to="'/ajout'" class="lien-ajout">
+              <v-list-item link class="menu-items">
+                <v-list-item-icon>
+                  <v-icon>mdi-plus-circle</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>Ajouter des restaurants</v-list-item-title>
+              </v-list-item>
+            </router-link>
             <v-list-item @click="modifierRestaurant()" class="menu-items">
               <v-list-item-icon>
                 <v-icon>mdi-pencil</v-icon>
@@ -32,7 +34,6 @@
               </v-list-item-icon>
               <v-list-item-title>Supprimer des restaurants</v-list-item-title>
             </v-list-item>
-            
           </v-list>
         </v-navigation-drawer>
       </div>
@@ -49,7 +50,8 @@
                 type="text"
                 name="name"
                 v-model="name"
-              /> <v-icon>mdi-magnify</v-icon>
+              />
+              <v-icon>mdi-magnify</v-icon>
               <v-alert v-if="this.name && this.restaurants.length > 0">
                 {{ nbRestaurantsTotal }} restaurant<span
                   v-if="this.restaurants.length > 1"
@@ -78,7 +80,6 @@
           circle
         ></v-pagination>
         <div id="resto">
-          <tr v-for="(r, index) in restaurants" :key="index" >
             <CarteRestaurants
               @refresh="getRestaurantsFromServer()"
               :id="r._id"
@@ -88,8 +89,8 @@
               :modifResto="modifResto"
               :deleteResto="deleteResto"
               :formDisabled="formDisabled"
+              v-for="(r, index) in restaurants" :key="index"
             />
-          </tr>
         </div>
         <p>
           Nombre de restaurants par page
@@ -130,9 +131,9 @@ export default {
     page: 1,
     pageSize: 10,
     nbPagesTotal: 0,
-    modifResto:false,
-    deleteResto:false,
-    formDisabled:false
+    modifResto: false,
+    deleteResto: false,
+    formDisabled: false,
   }),
   watch: {
     groupe() {
@@ -205,22 +206,22 @@ export default {
           console.log(err);
         });
     },
-    modifierRestaurant: function(){
-      this.modifResto=true;
-      this.deleteResto=false;
-      this.formDisabled=false;
+    modifierRestaurant: function () {
+      this.modifResto = true;
+      this.deleteResto = false;
+      this.formDisabled = false;
       this.getRestaurantsFromServer();
     },
-    supprimerRestaurant: function(){
-      this.modifResto=false;
-      this.deleteResto=true;
-      this.formDisabled=false;
+    supprimerRestaurant: function () {
+      this.modifResto = false;
+      this.deleteResto = true;
+      this.formDisabled = false;
       this.getRestaurantsFromServer();
     },
-    accueilRestaurant: function(){
-      this.modifResto=false;
-      this.deleteResto=false;
-      this.formDisabled=false;
+    accueilRestaurant: function () {
+      this.modifResto = false;
+      this.deleteResto = false;
+      this.formDisabled = false;
       this.getRestaurantsFromServer();
     },
     chercherResto: debounce(function () {
@@ -249,11 +250,13 @@ export default {
 
 #resto {
   display: flex;
-  flex-direction: column;
-  margin: auto;
-  width: auto;
-  display: inline-block;
-  
+    margin: auto;
+    width: auto;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-left: -30px;
+    margin-top: -30px;
 }
 
 .title-container {
@@ -286,11 +289,16 @@ export default {
 .carte-resto :hover {
   /*-webkit-transform: scale(1.1);
 	transform: scale(1.1);*/
-  background-color: #DDE8EB;
+  background-color: #dde8eb;
 }
 
 .form-control {
   border: solid 1px;
   border-radius: 4px;
+}
+
+.lien-ajout {
+  text-decoration: none;
+  color: black;
 }
 </style>
