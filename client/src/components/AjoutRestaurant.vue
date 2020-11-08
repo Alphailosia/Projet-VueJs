@@ -136,7 +136,7 @@ export default {
         borough: this.ville,
         coord1: this.c1,
         coord2: this.c2,
-        bulding: this.bulding,
+        building: this.building,
         street: this.street,
         zipcode: this.zipcode,
       };
@@ -152,7 +152,7 @@ export default {
       this.nom = "";
       this.cuisine = "";
       this.ville = "";
-      this.bulding = "";
+      this.building = "";
       this.street = "";
       this.zipcode = "";
     },

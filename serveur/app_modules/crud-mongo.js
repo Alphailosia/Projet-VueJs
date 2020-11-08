@@ -138,7 +138,7 @@ exports.createRestaurant = function(formData, callback) {
 				cuisine : formData.cuisine,
 				borough : formData.borough,
 				address : {
-					building:formData.building,
+					building: formData.building,
 					coord :[parseFloat(formData.coord1),parseFloat(formData.coord2)],
 					street : formData.street,
 					zipcode: formData.zipcode
