@@ -135,11 +135,18 @@ exports.createRestaurant = function(formData, callback) {
 	 
 			let toInsert = {
 				name : formData.nom, 
-				cuisine : formData.cuisine
+				cuisine : formData.cuisine,
+				borough : formData.borough,
+				address : {
+					building:formData.building,
+					coord :[parseFloat(formData.coord1),parseFloat(formData.coord2)],
+					street : formData.street,
+					zipcode: formData.zipcode
+				}
 			};
 			console.dir(JSON.stringify(toInsert));
 		    db.collection("restaurants")
-		    .insert(toInsert, function(err, insertedId) {
+		    .insertOne(toInsert, function(err, insertedId) {
 		    	let reponse;
 
 		    	console.log('++++'+insertedId)
@@ -186,6 +193,7 @@ exports.updateRestaurant = function(id, formData, callback) {
 
 			db.collection("restaurants")
 			.replaceOne(myquery, newvalues, function(err, result) {
+				let reponse;
 	         	if(!err){
 			    	reponse = {
 		                succes : true,
@@ -222,6 +230,7 @@ exports.deleteRestaurant = function(id, callback) {
 	        
 			db.collection("restaurants")
 			.deleteOne(myquery, function(err, result) {
+				let reponse;
 	         	if(!err){
 			    	reponse = {
 		                succes : true,

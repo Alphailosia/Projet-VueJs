@@ -52,7 +52,7 @@ export default {
       "https://cdn.discordapp.com/attachments/762755906634907659/771743956642824212/restaurante-03-200x300.png",
       "https://cdn.discordapp.com/attachments/762755906634907659/771744025468207114/57180308.png",
     ],
-    note: 0,
+    note: NaN,
   }),
   computed: {
     id() {
@@ -65,7 +65,7 @@ export default {
   methods: {
     calculNoteMoyenne: function () {
       if (this.resto.grades === undefined) {
-        this.note = "Non renseigné";
+        this.note = NaN;
       } else {
         let moyenne = 0;
         let sommeTotal = 0;
