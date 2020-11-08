@@ -1,22 +1,30 @@
 <template>
   <v-card class="organisation">
     <div id="oskour">
-    <v-card-title>Restaurant : {{ nom }}</v-card-title>
-      </div>
+      <v-card-title>Restaurant : {{ nom }}</v-card-title>
+    </div>
+    <img :src="this.srcImage" alt="imageResto" class="image-resto">
+    <div class="container-info-resto">
+      <div class="info-resto">
     <v-card-text>Cuisine : {{ cuisine }}</v-card-text>
     <v-card-text>Note : {{ note }}</v-card-text>
+      </div>
     <v-card-actions id="boutons">
-      <router-link :to="'/restaurant/'+id" style="text-decoration: none" >
-      <v-btn v-if="!modifResto && !deleteResto" >Détails</v-btn>
+  
+      <router-link :to="'/restaurant/' + id" style="text-decoration: none">
+        <v-btn v-if="!modifResto && !deleteResto">Détails</v-btn>
       </router-link>
-      <v-btn v-if="modifResto && !deleteResto" @click="formModifRestaurant()"><v-icon>mdi-pencil</v-icon></v-btn>
-      <v-btn v-if="!modifResto && deleteResto" @click="envoieRequeteFetchDelete()"><v-icon>mdi-delete</v-icon></v-btn>
+      <v-btn v-if="modifResto && !deleteResto" @click="formModifRestaurant()"
+        ><v-icon>mdi-pencil</v-icon></v-btn
+      >
+      <v-btn
+        v-if="!modifResto && deleteResto"
+        @click="envoieRequeteFetchDelete()"
+        ><v-icon>mdi-delete</v-icon></v-btn
+      >
     </v-card-actions>
-     <v-dialog
-      v-model="dialog"
-      persistent
-      max-width="600px"
-    >
+    </div>
+    <v-dialog v-model="dialog" persistent max-width="600px">
       <v-card>
         <v-card-title>
           <span class="headline">Modification des restaurants</span>
@@ -24,9 +32,7 @@
         <v-card-text>
           <v-container>
             <v-row>
-              <v-col
-                cols="12"
-              >
+              <v-col cols="12" class="form">
                 <v-text-field
                   label="Nom*"
                   name="nom"
@@ -34,10 +40,7 @@
                   required
                 ></v-text-field>
               </v-col>
-              <v-col
-                cols="12"
-                
-              >
+              <v-col cols="12" class="form">
                 <v-text-field
                   label="Cuisine*"
                   name="cuisine"
@@ -45,10 +48,7 @@
                   required
                 ></v-text-field>
               </v-col>
-              <v-col
-                cols="12"
-                
-              >
+              <v-col cols="12" class="form">
                 <v-text-field
                   label="Coordonnée 1*"
                   name="coord1"
@@ -56,7 +56,7 @@
                   required
                 ></v-text-field>
               </v-col>
-              <v-col cols="12">
+              <v-col cols="12" class="form">
                 <v-text-field
                   label="Coordonnée 2*"
                   name="coord2"
@@ -64,7 +64,7 @@
                   required
                 ></v-text-field>
               </v-col>
-              <v-col cols="12">
+              <v-col cols="12" class="form">
                 <v-text-field
                   label="Ville*"
                   name="borough"
@@ -72,21 +72,21 @@
                   required
                 ></v-text-field>
               </v-col>
-              <v-col cols="12">
+              <v-col cols="12" class="form">
                 <v-text-field
                   label="Bâtiment"
                   name="building"
                   v-model="resto.address.building"
                 ></v-text-field>
               </v-col>
-              <v-col cols="12">
+              <v-col cols="12" class="form">
                 <v-text-field
                   label="Rue"
                   name="street"
                   v-model="resto.address.street"
                 ></v-text-field>
               </v-col>
-              <v-col cols="12">
+              <v-col cols="12" class="form">
                 <v-text-field
                   label="Code Postal"
                   name="zipcode"
@@ -99,18 +99,10 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="fermerDialogue()"
-          >
+          <v-btn color="blue darken-1" text @click="fermerDialogue()">
             Close
           </v-btn>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="modificationRestaurant()"
-          >
+          <v-btn color="blue darken-1" text @click="modificationRestaurant()">
             Save
           </v-btn>
         </v-card-actions>
@@ -130,14 +122,16 @@ export default {
     deleteResto: Boolean,
     formDisabled: Boolean,
     resto: Object,
+    index: Number,
   },
   data: () => ({
     dialog: false,
-    resto2:{
-    }
+    resto2: {},
+    srcImage:"",
   }),
   mounted() {
-    this.resto2=this.resto;
+    this.resto2 = this.resto;
+    this.srcImage="https://picsum.photos/200/300?random="+this.index;
   },
   methods: {
     envoieRequeteFetchDelete: function () {
@@ -156,7 +150,7 @@ export default {
           console.log(err);
         });
     },
-    formModifRestaurant: function(){
+    formModifRestaurant: function () {
       this.dialog = true;
     },
     modificationRestaurant: async function () {
@@ -169,50 +163,76 @@ export default {
         building: this.resto.address.building,
         street: this.resto.address.street,
         zipcode: this.resto.address.zipcode,
-      }
-      console.log("modif sur ",pms)
-      const url = new URL('http://localhost:8080/api/restaurants/'+this.id),
-        params = pms
-      Object.keys(params).forEach((key) =>url.searchParams.append(key, params[key]));
-      const res = await fetch(url,{method:"PUT"});
+      };
+      console.log("modif sur ", pms);
+      const url = new URL("http://localhost:8080/api/restaurants/" + this.id),
+        params = pms;
+      Object.keys(params).forEach((key) =>
+        url.searchParams.append(key, params[key])
+      );
+      const res = await fetch(url, { method: "PUT" });
       const json = await res.json;
       console.log(json.data);
       this.$emit("refresh");
-      this.dialog=false;
+      this.dialog = false;
     },
-    fermerDialogue: function(){
-      this.nom=this.resto2.name;
-      this.cuisine=this.resto2.cuisine;
-      this.resto.name=this.resto2.name;
-      this.resto.cuisine=this.resto2.cuisine;
-      this.resto.borough=this.resto2.borough;
-      this.resto.address.coord[0]=this.resto2.address.coord[0];
-      this.resto.address.coord[1]=this.resto2.address.coord[1];
-      this.resto.address.building=this.resto2.address.building;
-      this.resto.address.street=this.resto2.address.street;
-      this.resto.address.zipcode=this.resto2.address.zipcode;
-      this.dialog=false;
+    fermerDialogue: function () {
+      this.nom = this.resto2.name;
+      this.cuisine = this.resto2.cuisine;
+      this.resto.name = this.resto2.name;
+      this.resto.cuisine = this.resto2.cuisine;
+      this.resto.borough = this.resto2.borough;
+      this.resto.address.coord[0] = this.resto2.address.coord[0];
+      this.resto.address.coord[1] = this.resto2.address.coord[1];
+      this.resto.address.building = this.resto2.address.building;
+      this.resto.address.street = this.resto2.address.street;
+      this.resto.address.zipcode = this.resto2.address.zipcode;
+      this.dialog = false;
       console.log(this.resto2);
-      
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped>
-#oskour{
-  display:flex;
-  justify-content: space-between; 
-  margin-top: 20px;
+#oskour {
+  display: flex;
+  justify-content: center;
+  width:100% ;
 }
 
-#boutons{
-    display: flex;
-    justify-content: flex-end;
+#boutons {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .organisation {
   width: 40%;
   margin-left: 30px;
   margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding:10px;
+}
+
+.image-resto{
+  max-width: 100%;
+  height: auto;
+  flex: 1;
+}
+
+.container-info-resto{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex:2;
+}
+
+.info-resto{
+  margin: auto;
+}
+
+.form {
+  padding:0;
 }
 </style>

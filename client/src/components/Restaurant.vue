@@ -82,6 +82,7 @@
         <div id="resto">
             <CarteRestaurants
               @refresh="getRestaurantsFromServer()"
+              :index="index"
               :id="r._id"
               :nom="r.name"
               :cuisine="r.cuisine"
