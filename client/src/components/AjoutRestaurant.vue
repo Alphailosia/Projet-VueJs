@@ -105,6 +105,7 @@
             placeholder="Code postal..."
           />
         </label>
+         <small>*indicates required field</small>
         <button @click="snackbar = true" class="btn">Ajouter</button>
         <v-snackbar :timeout="2000" v-model="snackbar" color="success">
           Le restaurant a bien été ajouté.

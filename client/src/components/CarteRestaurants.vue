@@ -19,18 +19,16 @@
     >
       <v-card>
         <v-card-title>
-          <span class="headline">User Profile</span>
+          <span class="headline">Modification des restaurants</span>
         </v-card-title>
         <v-card-text>
           <v-container>
             <v-row>
               <v-col
                 cols="12"
-                sm="6"
-                md="4"
               >
                 <v-text-field
-                  label="Nom"
+                  label="Nom*"
                   name="nom"
                   v-model="resto.name"
                   required
@@ -38,22 +36,21 @@
               </v-col>
               <v-col
                 cols="12"
-                sm="6"
-                md="4"
+                
               >
                 <v-text-field
-                  label="Cuisine"
+                  label="Cuisine*"
                   name="cuisine"
                   v-model="resto.cuisine"
+                  required
                 ></v-text-field>
               </v-col>
               <v-col
                 cols="12"
-                sm="6"
-                md="4"
+                
               >
                 <v-text-field
-                  label="Coordonnée 1"
+                  label="Coordonnée 1*"
                   name="coord1"
                   v-model="resto.address.coord[0]"
                   required
@@ -61,7 +58,7 @@
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                  label="Coordonnée 2"
+                  label="Coordonnée 2*"
                   name="coord2"
                   v-model="resto.address.coord[1]"
                   required
@@ -69,7 +66,7 @@
               </v-col>
               <v-col cols="12">
                 <v-text-field
-                  label="Ville"
+                  label="Ville*"
                   name="borough"
                   v-model="resto.borough"
                   required
@@ -80,7 +77,6 @@
                   label="Bâtiment"
                   name="building"
                   v-model="resto.address.building"
-                  required
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
@@ -88,7 +84,6 @@
                   label="Rue"
                   name="street"
                   v-model="resto.address.street"
-                  required
                 ></v-text-field>
               </v-col>
               <v-col cols="12">
@@ -96,7 +91,6 @@
                   label="Code Postal"
                   name="zipcode"
                   v-model="resto.address.zipcode"
-                  required
                 ></v-text-field>
               </v-col>
             </v-row>
