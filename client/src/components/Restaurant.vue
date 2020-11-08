@@ -87,6 +87,7 @@
               :note="r.note"
               :modifResto="modifResto"
               :deleteResto="deleteResto"
+              :formDisabled="formDisabled"
             />
           </tr>
         </div>
@@ -125,15 +126,13 @@ export default {
   data: () => ({
     restaurants: [],
     name: "",
-    nom: "",
-    cuisine: "",
     nbRestaurantsTotal: 0,
     page: 1,
     pageSize: 10,
     nbPagesTotal: 0,
-    snackbar: false,
     modifResto:false,
-    deleteResto:false
+    deleteResto:false,
+    formDisabled:false
   }),
   watch: {
     groupe() {
@@ -206,37 +205,22 @@ export default {
           console.log(err);
         });
     },
-    ajouterRestaurant: async function () {
-      const pms = {
-        nom: this.nom,
-        cuisine: this.cuisine,
-      };
-
-      const url = new URL("http://localhost:8080/api/restaurants"),
-        params = pms;
-      Object.keys(params).forEach((key) =>
-        url.searchParams.append(key, params[key])
-      );
-      const res = await fetch(url, { method: "POST" });
-      const json = await res.json;
-      console.log(json.data);
-      this.getRestaurantsFromServer();
-      this.nom = "";
-      this.cuisine = "";
-    },
     modifierRestaurant: function(){
       this.modifResto=true;
       this.deleteResto=false;
+      this.formDisabled=false;
       this.getRestaurantsFromServer();
     },
     supprimerRestaurant: function(){
       this.modifResto=false;
       this.deleteResto=true;
+      this.formDisabled=false;
       this.getRestaurantsFromServer();
     },
     accueilRestaurant: function(){
       this.modifResto=false;
       this.deleteResto=false;
+      this.formDisabled=false;
       this.getRestaurantsFromServer();
     },
     chercherResto: debounce(function () {

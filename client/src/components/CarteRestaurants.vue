@@ -32,10 +32,10 @@ export default {
     cuisine: String,
     note: Number,
     modifResto: Boolean,
-    deleteResto: Boolean
+    deleteResto: Boolean,
+    formDisabled: Boolean
   },
   data: () => ({
-    formDisabled: false,
     nomModif: "",
     cuisineModif: ""
   }),
@@ -74,11 +74,8 @@ export default {
       this.$emit("refresh");
       this.nomModif = "";
       this.cuisineModif ="";
-    },
-    detailRestaurant: function(){
-      
     }
-  },
+  }
 };
 </script>
 <style scoped>
